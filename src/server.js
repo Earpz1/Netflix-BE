@@ -7,7 +7,10 @@ const server = express()
 const port = 3001
 const publicFolder = join(process.cwd(), './public')
 
-const whitelist = ['http://localhost:3000']
+const whitelist = [
+  'http://localhost:3000',
+  'https://netflix-front-end-mu.vercel.app/',
+]
 
 server.get('/', (request, response) => {
   response.send('Successful Connection')
