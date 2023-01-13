@@ -7,7 +7,7 @@ const server = express()
 const port = 3001
 const publicFolder = join(process.cwd(), './public')
 
-const whitelist = ['localhost:3001']
+const whitelist = ['http://localhost:3000']
 
 server.get('/', (request, response) => {
   response.send('Successful Connection')

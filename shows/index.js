@@ -65,6 +65,24 @@ showsRouter.get('/:id', async (request, response, next) => {
   }
 })
 
+//Get a type of show
+showsRouter.get('/category/:type', async (request, response, next) => {
+  try {
+    const data = await getShows()
+    const type = request.params.type
+
+    const singleShow = data.filter((show) => show.Type === type)
+
+    if (singleShow) {
+      response.send(singleShow)
+    } else {
+      next(NotFound('There were no shows with that category found'))
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 //Add movie poster to a show
 
 showsRouter.post(
