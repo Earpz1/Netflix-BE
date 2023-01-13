@@ -9,7 +9,7 @@ import multer from 'multer'
 
 const { NotFound } = httpErrors
 
-const moviePoster = multer({
+const moviePosterUploader = multer({
   storage: new CloudinaryStorage({
     cloudinary,
     params: {
@@ -64,9 +64,10 @@ showsRouter.get('/:id', async (request, response, next) => {
 })
 
 //Add movie poster to a show
+
 showsRouter.post(
   '/:id/poster',
-  moviePoster,
+  moviePosterUploader,
   async (request, response, next) => {
     try {
       const url = request.file.path
@@ -82,9 +83,10 @@ showsRouter.post(
 
         showData[showIndex] = newShow
 
-        await writePosts(showData)
+        await writeShow(showData)
       }
-      response.send('File Uploaded!')
+
+      response.send('File uploaded!')
     } catch (error) {
       next(error)
     }
