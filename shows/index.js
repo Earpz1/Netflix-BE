@@ -6,6 +6,8 @@ import httpErrors from 'http-errors'
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
 import { v2 as cloudinary } from 'cloudinary'
 import multer from 'multer'
+import { getPDFReadableStream } from '../lib/pdf-tools.js'
+import { pipeline } from 'stream'
 
 const { NotFound } = httpErrors
 
@@ -92,5 +94,19 @@ showsRouter.post(
     }
   },
 )
+
+showsRouter.get('/:id/pdf', async (request, response, next) => {
+  response.setHeader('Content-Disposition', 'attachment; filename=test.pdf')
+
+  const id = request.params.id
+  const showsArray = await getShows()
+  const singleShow = showsArray.find((show) => show.imdbID === id)
+
+  const source = await getPDFReadableStream(singleShow)
+  const destination = response
+  pipeline(source, destination, (error) => {
+    if (error) console.log(error)
+  })
+})
 
 export default showsRouter
