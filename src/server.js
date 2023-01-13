@@ -4,7 +4,7 @@ import cors from 'cors'
 import showsRouter from '../shows/index.js'
 
 const server = express()
-const port = 3001
+const port = process.env.PORT
 const publicFolder = join(process.cwd(), './public')
 
 const whitelist = [
