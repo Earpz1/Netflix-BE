@@ -99,7 +99,7 @@ showsRouter.post(
 
       if (showIndex !== -1) {
         const show = showData[showIndex]
-        const newShow = { ...show, poster: url }
+        const newShow = { ...show, Poster: url }
 
         showData[showIndex] = newShow
 
